@@ -3,14 +3,11 @@ This file is to check if the folder that the student is trying to submit
 is of this exact structure (with exact naming):
 | index.html
 | data
-    | *.csv
+    | *
 | <all the other stuff that you included with no name requirements>
-
 And then it will zip
-
 This code is inspired by the submission zip file created by Professor
 James Tompkin (james_topkin@brown.edu) for CSCI 1430 - Brown University.
-
 Adapted by Nam Do (nam_do@brown.edu) - Spring 2021.
 """
 from __future__ import with_statement
@@ -94,7 +91,7 @@ def main():
                     on Github. E.g. 'hw6-dataviz-ndo3'")
             sys.exit()
         # else, we will now create a tinyurl to the github pages of this submission
-        correct_path = "https://cs1951a-s21-brown.github.io/{}/index.html".format(repo_name)
+        correct_path = "https://cs1951a-s21-brown.github.io/{}/".format(repo_name)
         # this link will not really be available until you make public your Github Page
         tinyurl = make_tiny(correct_path)
         # also do a binary encoding of your repo name, just in case we cannot get ahold of
@@ -128,16 +125,15 @@ def main():
     print("Writting into zip file...")
     zip_path = "dataviz-submission-1951A.zip"
     with zipfile.ZipFile(zip_path, "w") as zip:
-        for root, dirs, files in os.walk(os.getcwd()):
-            # skipping the hidden files
-            for e in root.split("/")[1:]:
-                if e[0] == ".": break
+        for dirname, _, files in os.walk(os.getcwd()):
+            if '{}.'.format(os.sep) not in dirname:
                 for f in files:
                     if f != zip_path and f != "zip_assignment.py" and not(".zip" in f):
-                        zip.write(os.path.join(root, f),\
-                                    os.path.relpath(os.path.join(root, f),\
+                        zip.write(os.path.relpath(os.path.join(dirname, f),\
                                         os.path.join(zip_path, '..'))\
                                     )
+
+
 
 
     print("Done! Wrote the submission zip to {}".format(zip_path))

@@ -7,6 +7,10 @@
         <link rel="stylesheet" href="main.css"/>
         <!--Feel free to add more CSS files as needed-->
         <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/d3-regression@1.3.4/dist/d3-regression.min.js"></script>
     </head>
 <body>
     <div class="header">
@@ -15,12 +19,75 @@
     <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
         <div class="col-lg-6">
+            <form>
+                <label for="input-years">type the years range from 1872 to 2015 here</label>
+                <input type="text" id="input-years"/>
+                <input type="button" value="submit" id="submit-year"/>
+            </form>
             <div id="graph1"></div>
-            <div id="graph2"></div><br/>
+            <p>
+                For graph1, I use scatter plot for the year and number of games played in that year.
+                The default years is set to the latest 5 years. And the user can manually add year,
+                but it's limited to one at a time. And the input range is [1872, 2020], anything outside
+                that range or is already in the graph will throw an error.<br>
+                I also tried to fit a regression line that will update when user adds a new year. The regression
+                line will try to fit the number of games played in each year. The fitting ability is apparently 
+                impacted by the outlier of 2020, which has only 7 games.
+            </p>
+            <div id="graph2">
+                <h1>The top 10 teams (defined by the number of victories) in the history</h1>
+                <h2>Hover to see the winning percentage</h2>
+            </div>
+            <p>
+                I use map form to represent the top 10 teams (defined by the number of victories) in the
+                dataset. You can access the winning percentage by hovering on each country.
+            </p>
+            <div id="graph3">
+                <h1>The total match history for 2014 & 2018 world cup</h1>
+                <h2>Hover to see the winning percentage</h2>
+            </div>
+            <p>
+                Again I set the winning percentage as a criteria to evaluate different teams. But this
+                time I also uses a flow chart to show the components of each team to include more information.
+                We can see the top world cup winners (France and Germany) played a lot of games and have high
+                winning percentages.
+            </p>
         </div>
-        <div class="col-lg-6">
-            <div id="graph3"></div>
-        </div>
+        <h2>List 3 reasons why D3 was helpful and improved your visualization (6 points)</h2>
+        <p>
+            1. D3 provides convenient ways reads data in and cooperate with Javascript's anonymous function.
+        <br>
+            2. D3 cooperates with html and css, so I can easily customize my visualization.
+        <br>
+            3. D3 provides a variety of external libraries to solve specific problems, like country maps.
+        </p>
+        <h2>
+            List 3 reasons why D3 would not be the best tool for creating a visualization (6 points)
+        </h2>
+        <p>
+            1. Comparing to matplotlib or matlab, D3 lacks the ability to deal with big data and provided
+                scientific computing functions. <br>
+            2. D3 requires background knowledge of javascript and web DOM, which might not be in the technique
+                stack of a data scientist. <br>
+            3. D3 is still evolving fast, and there's no tutorial from the official website about the latest 
+                version.
+        </p>
+        <h2>Accessible Data Visualization (10 points)</h2>
+        <p>
+            Users with full sights will find those dashboards accessible, while users with visual disabilities
+            might have difficulties to access the dashboards. To make the data chart accessible to blind people,
+            I will add screen reader to the website, just as mentioned in “Why Accessibility Is at the Heart of Data Visualization”.
+            And also, add more accessible design in my html to let user navigate through tab. A screen reader should help
+            the visual disable users to better understand what the dashboard is about. Also, include alt text in the HTML
+            will also help those users, since sometimes a dashboard is too complex to access by a screen reader. When that's
+            the case, alt text can briefly describe what's that dashboard is about. <br>
+        </p>
+        <p>
+            I could add tabIndent to the html divs, and also include alt text for those svg. But I didn't implement that.
+            One reason for not making my dashboard more accessible is I have to put a lot of extra works to send
+            the same message by text. It is not easy to summarize the dashboards, especially the third one, which
+            is basically every match in the latest 2 world cups.
+        </p>
     </div>
     <!--Feel free to add more JavaScript files as needed-->
     <script type="text/javascript" src="main.js"></script>
